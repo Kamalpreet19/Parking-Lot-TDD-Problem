@@ -50,4 +50,19 @@ public class ParkingLotTest {
         assertFalse(lot.unparkCars());
     }
 
+    @Test
+    public void shouldReturnTrueWhenParkingLotIsFull(){
+        ParkingLot lot=new ParkingLot(2);
+        lot.parkCars();
+        lot.parkCars();
+        assertTrue(lot.isFull());
+    }
+
+    @Test
+    public void shouldReturnFalseWhenParkingLotIsNotFull(){
+        ParkingLot lot=new ParkingLot(2);
+        lot.parkCars();
+        assertFalse(lot.isFull());
+    }
+
 }

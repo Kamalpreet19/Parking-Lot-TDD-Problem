@@ -25,6 +25,11 @@ public class ParkingLot {
         }
         return false;
     }
+
+    public boolean isFull(){
+         return parkedCars==capacity;
+    }
+
     public int getAvailableSlots(){
         return capacity-parkedCars;
     }
