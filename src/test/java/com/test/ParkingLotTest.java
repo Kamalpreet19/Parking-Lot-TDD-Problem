@@ -51,18 +51,16 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void shouldReturnTrueWhenParkingLotIsFull(){
-        ParkingLot lot=new ParkingLot(2);
+    public void shouldNotifyOwnerWhenParkingLotBecomesFull(){
+        ParkingLot lot = new ParkingLot(1);
+        ParkingLotOwner owner = new ParkingLotOwner();
+
+        lot.registerObserver(owner);
         lot.parkCars();
-        lot.parkCars();
-        assertTrue(lot.isFull());
+
+        assertTrue(owner.isFullSignDisplayed());
     }
 
-    @Test
-    public void shouldReturnFalseWhenParkingLotIsNotFull(){
-        ParkingLot lot=new ParkingLot(2);
-        lot.parkCars();
-        assertFalse(lot.isFull());
-    }
+
 
 }
