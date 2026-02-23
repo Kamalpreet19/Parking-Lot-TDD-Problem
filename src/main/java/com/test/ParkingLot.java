@@ -18,6 +18,13 @@ public class ParkingLot {
         return false;
     }
 
+    public boolean unparkCars(){
+        if(parkedCars>0) {
+            parkedCars--;
+            return true;
+        }
+        return false;
+    }
     public int getAvailableSlots(){
         return capacity-parkedCars;
     }
