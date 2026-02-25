@@ -61,6 +61,20 @@ public class ParkingLotTest {
         assertTrue(owner.isFullSignDisplayed());
     }
 
+    @Test
+    public void shouldNotifySecurityWhenParkingLotBecomesFull(){
+        ParkingLot lot = new ParkingLot(1);
+        ParkingLotOwner owner = new ParkingLotOwner();
+        AirportSecurity security = new AirportSecurity();
+
+        lot.registerObserver(owner);
+        lot.registerObserver(security);
+
+        lot.parkCars();
+
+        assertTrue(owner.isFullSignDisplayed());
+        assertTrue(security.isStaffRedirected());
+    }
 
 
 }
