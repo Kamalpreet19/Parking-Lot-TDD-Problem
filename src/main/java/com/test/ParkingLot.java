@@ -17,7 +17,7 @@ public class ParkingLot {
 
 
     public void registerObserver(ParkingLotObserver observer){
-        this.observers.add(observer);
+        observers.add(observer);
     }
 
     public boolean parkCars(){
@@ -25,10 +25,9 @@ public class ParkingLot {
             parkedCars++;
 
             if(isFull()){
-                for (ParkingLotObserver observer : observers) {
-                    observer.notifyLotFull();
+                notifyLotFull();
                 }
-            }
+
             return true;
         }
         return false;
@@ -36,10 +35,27 @@ public class ParkingLot {
 
     public boolean unparkCars(){
         if(parkedCars > 0){
+            boolean wasFull = isFull();
             parkedCars--;
+            if (wasFull) {
+                notifyLotAvailable();
+            }
             return true;
         }
         return false;
+    }
+
+
+    private void notifyLotFull() {
+        for (ParkingLotObserver observer : observers) {
+            observer.notifyLotFull();
+        }
+    }
+
+    private void notifyLotAvailable() {
+        for (ParkingLotObserver observer : observers) {
+            observer.notifyLotAvailable();
+        }
     }
 
     public boolean isFull(){

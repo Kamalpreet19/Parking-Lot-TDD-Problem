@@ -10,6 +10,12 @@ public class ParkingLotOwner implements ParkingLotObserver {
         System.out.println("Parking lot is full. Putting out FULL sign.");
     }
 
+    @Override
+    public void notifyLotAvailable() {
+        fullSignDisplayed = false;
+        System.out.println("Owner: Parking lot has space. Taking down FULL sign.");
+    }
+
     public boolean isFullSignDisplayed() {
         return fullSignDisplayed;
     }

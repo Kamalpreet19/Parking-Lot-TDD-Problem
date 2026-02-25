@@ -76,5 +76,18 @@ public class ParkingLotTest {
         assertTrue(security.isStaffRedirected());
     }
 
+    @Test
+    public void shouldNotifyOwnerWhenSpaceBecomesAvailable() {
+        ParkingLot lot = new ParkingLot(1);
+        ParkingLotOwner owner = new ParkingLotOwner();
+
+        lot.registerObserver(owner);
+
+        lot.parkCars();
+        lot.unparkCars();
+
+        assertFalse(owner.isFullSignDisplayed());
+    }
+
 
 }
