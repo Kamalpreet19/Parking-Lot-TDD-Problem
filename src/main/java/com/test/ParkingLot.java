@@ -6,13 +6,13 @@ import java.util.List;
 public class ParkingLot {
 
     private int capacity;
-    private int parkedCars;
+    private List<Car>parkedCars;
 
     private List<ParkingLotObserver> observers = new ArrayList<>();
 
     public ParkingLot(int capacity){
         this.capacity = capacity;
-        this.parkedCars = 0;
+        this.parkedCars = new ArrayList<>();
     }
 
 
@@ -20,9 +20,9 @@ public class ParkingLot {
         observers.add(observer);
     }
 
-    public boolean parkCars(){
-        if(parkedCars < capacity){
-            parkedCars++;
+    public boolean parkCars(Car car){
+        if(parkedCars.size() < capacity){
+            parkedCars.add(car);
 
             if(isFull()){
                 notifyLotFull();
@@ -33,10 +33,10 @@ public class ParkingLot {
         return false;
     }
 
-    public boolean unparkCars(){
-        if(parkedCars > 0){
+    public boolean unparkCars(Car car){
+        if(parkedCars.contains(car) ){
             boolean wasFull = isFull();
-            parkedCars--;
+            parkedCars.remove(car);
             if (wasFull) {
                 notifyLotAvailable();
             }
@@ -45,6 +45,14 @@ public class ParkingLot {
         return false;
     }
 
+    public boolean findCar(String registrationNumber){
+        for(Car car : parkedCars){
+            if(car.getRegistrationNumber().equals(registrationNumber)){
+                return true;
+            }
+        }
+        return false;
+    }
 
     private void notifyLotFull() {
         for (ParkingLotObserver observer : observers) {
@@ -60,11 +68,11 @@ public class ParkingLot {
 
     public boolean isFull(){
 
-        return parkedCars == capacity;
+        return parkedCars.size() == capacity;
     }
 
     public int getAvailableSlots()
     {
-        return capacity - parkedCars;
+        return capacity - parkedCars.size();
     }
 }

@@ -9,11 +9,11 @@ public class ParkingAttendant {
         this.parkingLots = parkingLots;
     }
 
-    public boolean parkCar() {
+    public boolean parkCar(Car car) {
 
         for (ParkingLot lot : parkingLots) {
             if (!lot.isFull()) {
-                return lot.parkCars();
+                return lot.parkCars(car);
             }
         }
 
