@@ -2,6 +2,9 @@ package com.test;
 
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static junit.framework.Assert.*;
 
 public class ParkingLotTest {
@@ -89,5 +92,21 @@ public class ParkingLotTest {
         assertFalse(owner.isFullSignDisplayed());
     }
 
+    @Test
+    public void attendantShouldParkCarInAvailableLot() {
 
+        ParkingLot lot1 = new ParkingLot(1);
+        ParkingLot lot2 = new ParkingLot(1);
+
+        lot1.parkCars();
+
+        List<ParkingLot> lots = new ArrayList<>();
+        lots.add(lot1);
+        lots.add(lot2);
+
+        ParkingAttendant attendant = new ParkingAttendant(lots);
+
+        assertTrue(attendant.parkCar());
+        assertEquals(0, lot2.getAvailableSlots());
+    }
 }
